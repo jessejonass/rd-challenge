@@ -1,13 +1,13 @@
 // Form.js
 
-import React, { useEffect } from 'react';
-import { Preferences, Features, RecommendationType } from './Fields';
-import { SubmitButton } from './SubmitButton';
-import useProducts from '../../hooks/useProducts';
 import useForm from '../../hooks/useForm';
+import useProducts from '../../hooks/useProducts';
 import useRecommendations from '../../hooks/useRecommendations';
+import ClearButton from './ClearButton/ClearButton';
+import { Features, Preferences, RecommendationType } from './Fields';
+import { SubmitButton } from './SubmitButton';
 
-function Form() {
+function Form({ onSubmit }) {
   const { preferences, features, products } = useProducts();
   const { formData, handleChange } = useForm({
     selectedPreferences: [],
@@ -15,15 +15,19 @@ function Form() {
     selectedRecommendationType: '',
   });
 
-  const { getRecommendations, recommendations } = useRecommendations(products);
+  const { getRecommendations } = useRecommendations(products);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const dataRecommendations = getRecommendations(formData);
+    onSubmit(dataRecommendations);
+  };
 
-    /**
-     * Defina aqui a lógica para atualizar as recomendações e passar para a lista de recomendações
-     */
+  const handleClear = () => {
+    handleChange('selectedPreferences', []);
+    handleChange('selectedFeatures', []);
+    handleChange('selectedRecommendationType', '');
+    onSubmit([]);
   };
 
   return (
@@ -48,7 +52,11 @@ function Form() {
           handleChange('selectedRecommendationType', selected)
         }
       />
-      <SubmitButton text="Obter recomendação" />
+
+      <div className="flex gap-2">
+        <SubmitButton text="Obter recomendação" />
+        <ClearButton text="Limpar" onClick={handleClear} />
+      </div>
     </form>
   );
 }
