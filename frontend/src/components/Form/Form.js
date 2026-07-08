@@ -7,7 +7,7 @@ import { ClearButton } from './ClearButton';
 import { Features, Preferences, RecommendationType } from './Fields';
 import { SubmitButton } from './SubmitButton';
 
-function Form({ onSubmit }) {
+function Form({ onSubmit, recommendations }) {
   const { preferences, features, products } = useProducts();
   const { formData, handleChange } = useForm({
     selectedPreferences: [],
@@ -29,6 +29,11 @@ function Form({ onSubmit }) {
     handleChange('selectedRecommendationType', '');
     onSubmit([]);
   };
+
+  const disableSubmitButton =
+    !formData.selectedPreferences.length && !formData.selectedFeatures.length;
+
+  const disableClearButton = recommendations.length === 0;
 
   return (
     <form
@@ -54,8 +59,15 @@ function Form({ onSubmit }) {
       />
 
       <div className="flex gap-2">
-        <SubmitButton text="Obter recomendação" />
-        <ClearButton text="Limpar" onClick={handleClear} />
+        <SubmitButton
+          text="Obter recomendação"
+          disabled={disableSubmitButton}
+        />
+        <ClearButton
+          text="Limpar"
+          onClick={handleClear}
+          disabled={disableClearButton}
+        />
       </div>
     </form>
   );

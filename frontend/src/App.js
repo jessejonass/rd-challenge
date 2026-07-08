@@ -28,7 +28,10 @@ function App() {
           </p>
         </div>
         <div>
-          <Form onSubmit={setRecommendations} />
+          <Form
+            onSubmit={setRecommendations}
+            recommendations={recommendations}
+          />
         </div>
         <div>
           <RecommendationList recommendations={recommendations} />
