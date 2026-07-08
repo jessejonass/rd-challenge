@@ -1,4 +1,4 @@
-const ClearButton = ({ text, onClick }) => {
+function ClearButton({ text, onClick }) {
   return (
     <button
       type="button"
@@ -9,6 +9,6 @@ const ClearButton = ({ text, onClick }) => {
       {text}
     </button>
   );
-};
+}
 
 export default ClearButton;

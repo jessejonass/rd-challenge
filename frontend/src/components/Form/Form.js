@@ -3,7 +3,7 @@
 import useForm from '../../hooks/useForm';
 import useProducts from '../../hooks/useProducts';
 import useRecommendations from '../../hooks/useRecommendations';
-import ClearButton from './ClearButton/ClearButton';
+import { ClearButton } from './ClearButton';
 import { Features, Preferences, RecommendationType } from './Fields';
 import { SubmitButton } from './SubmitButton';
 

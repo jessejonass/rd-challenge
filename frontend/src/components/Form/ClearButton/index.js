@@ -1,1 +1,3 @@
-export * from './recommendation.service';
+import ClearButton from './ClearButton';
+
+export { ClearButton };
